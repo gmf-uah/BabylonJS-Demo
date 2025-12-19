@@ -1,0 +1,22 @@
+{
+  "name": "babylonjs-demo",
+  "version": "1.0.0",
+  "description": "BabylonJS 3D demo with fly camera and cube",
+  "main": "app.js",
+  "scripts": {
+    "start": "http-server -p 8089"
+  },
+  "keywords": [
+    "babylonjs",
+    "3d",
+    "webgl"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "babylonjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
