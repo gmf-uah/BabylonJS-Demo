@@ -3,6 +3,11 @@ import * as BABYLON from '@babylonjs/core';
 const canvas = document.getElementById("renderCanvas");
 const errorMessage = document.getElementById("error-message");
 
+// Validate that required DOM elements exist
+if (!canvas || !errorMessage) {
+    throw new Error("Required DOM elements not found. Ensure index.html has the correct structure.");
+}
+
 async function initWebGPU() {
     try {
         // Check if WebGPU is supported
@@ -96,7 +101,7 @@ function showError(message) {
 }
 
 // Initialize the WebGPU engine and create the scene
-initWebGPU().then(({ engine, scene }) => {
+initWebGPU().then(() => {
     console.log("WebGPU initialized successfully!");
     console.log("Scene created with FreeCamera, cube, and ground.");
 }).catch((error) => {
