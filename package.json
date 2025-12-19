@@ -14,6 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@webgpu/glslang": "^0.0.15",
     "babylonjs": "^6.0.0"
   },
   "devDependencies": {

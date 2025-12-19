@@ -46,9 +46,11 @@ http://localhost:8089/index.html
 ## Project Structure
 
 - `index.html` - Main HTML page with canvas element
-- `app.js` - BabylonJS scene setup and camera controls
-- `babylon.js` - BabylonJS library (v6.49.0)
+- `app.js` - BabylonJS scene setup and camera controls (with WebGPU support)
+- `babylon.js` - BabylonJS library v6.49.0 (non-obfuscated version for better debugging)
+- `glslang/` - WebGPU shader compiler dependencies (glslang.js and glslang.wasm)
 - `package.json` - Project dependencies and scripts
+- `WEBGPU_FIXES.md` - Documentation of WebGPU initialization fixes
 
 ## Technologies Used
 
