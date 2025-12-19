@@ -16,7 +16,7 @@ A simple 3D web application using BabylonJS that allows users to fly their camer
 ## Requirements
 
 - Node.js and npm
-- Modern web browser with WebGL support
+- Modern web browser with WebGL 2.0 support (or WebGPU for enhanced performance)
 
 ## Installation
 
@@ -52,6 +52,6 @@ http://localhost:8089/index.html
 
 ## Technologies Used
 
-- [BabylonJS](https://www.babylonjs.com/) - WebGL-based 3D engine
-- WebGL 2.0 - Graphics rendering
+- [BabylonJS](https://www.babylonjs.com/) - WebGL/WebGPU-based 3D engine
+- WebGPU - Modern graphics rendering API (with WebGL 2.0 fallback)
 - JavaScript - Scene logic and controls
