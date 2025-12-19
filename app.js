@@ -1,11 +1,8 @@
 // Get the canvas element
 const canvas = document.getElementById("renderCanvas");
 
-// Create the BabylonJS engine
-const engine = new BABYLON.Engine(canvas, true);
-
 // Create the scene
-const createScene = function() {
+const createScene = function(engine) {
     // Create a basic scene
     const scene = new BABYLON.Scene(engine);
     
@@ -64,15 +61,40 @@ const createScene = function() {
     return scene;
 };
 
-// Create the scene
-const scene = createScene();
+// Initialize the engine and scene
+const initEngine = async function() {
+    let engine;
+    
+    // Try to create a WebGPU engine if supported
+    if (navigator.gpu) {
+        try {
+            const webGPUEngine = new BABYLON.WebGPUEngine(canvas, { useWebGPU: true });
+            await webGPUEngine.initAsync();
+            engine = webGPUEngine;
+            console.log("WebGPU engine initialized successfully");
+        } catch (e) {
+            console.warn("WebGPU initialization failed, falling back to WebGL:", e);
+            engine = new BABYLON.Engine(canvas, true);
+        }
+    } else {
+        // Fallback to WebGL if WebGPU is not supported
+        console.log("WebGPU not supported, using WebGL");
+        engine = new BABYLON.Engine(canvas, true);
+    }
+    
+    // Create the scene
+    const scene = createScene(engine);
+    
+    // Run the render loop
+    engine.runRenderLoop(function() {
+        scene.render();
+    });
+    
+    // Handle window resize
+    window.addEventListener("resize", function() {
+        engine.resize();
+    });
+};
 
-// Run the render loop
-engine.runRenderLoop(function() {
-    scene.render();
-});
-
-// Handle window resize
-window.addEventListener("resize", function() {
-    engine.resize();
-});
+// Start the application
+initEngine();
