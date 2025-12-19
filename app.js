@@ -80,8 +80,8 @@ const initEngine = async function() {
             // Initialize WebGPU with local glslang paths to avoid CDN dependency
             // Fixed: Provide local paths for glslang compiler instead of relying on external CDN
             await webGPUEngine.initAsync({
-                jsPath: '/glslang/glslang.js',
-                wasmPath: '/glslang/glslang.wasm'
+                jsPath: './glslang/glslang.js',
+                wasmPath: './glslang/glslang.wasm'
             });
             engine = webGPUEngine;
             console.log("WebGPU engine initialized successfully");
