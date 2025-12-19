@@ -15,7 +15,7 @@ A simple 3D web application using BabylonJS that allows users to fly their camer
 
 ## Requirements
 
-- Python 3 (for running the local server)
+- Node.js and npm
 - Modern web browser with WebGL support
 
 ## Installation
@@ -40,7 +40,7 @@ npm start
 
 Then open your browser and navigate to:
 ```
-http://localhost:8080/index.html
+http://localhost:8089/index.html
 ```
 
 ## Project Structure
