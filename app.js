@@ -68,11 +68,28 @@ const initEngine = async function() {
     // Try to create a WebGPU engine if supported
     if (navigator.gpu) {
         try {
-            const webGPUEngine = new BABYLON.WebGPUEngine(canvas);
-            await webGPUEngine.initAsync();
+            // Create WebGPU engine with proper options
+            // Fixed: Added options parameter and improved error handling for WebGPU initialization
+            const webGPUEngine = new BABYLON.WebGPUEngine(canvas, {
+                antialias: true,
+                stencil: true,
+                preserveDrawingBuffer: false,
+                powerPreference: "high-performance"
+            });
+            
+            // Initialize WebGPU with local glslang paths to avoid CDN dependency
+            // Fixed: Provide local paths for glslang compiler instead of relying on external CDN
+            await webGPUEngine.initAsync({
+                jsPath: '/glslang/glslang.js',
+                wasmPath: '/glslang/glslang.wasm'
+            });
             engine = webGPUEngine;
             console.log("WebGPU engine initialized successfully");
         } catch (e) {
+            // WebGPU initialization can fail for various reasons:
+            // - Browser doesn't fully support WebGPU
+            // - Required dependencies (glslang, twgsl) are not available
+            // - GPU adapter is not available
             console.warn("WebGPU initialization failed, falling back to WebGL:", e);
             engine = new BABYLON.Engine(canvas, true);
         }
