@@ -68,7 +68,7 @@ const initEngine = async function() {
     // Try to create a WebGPU engine if supported
     if (navigator.gpu) {
         try {
-            const webGPUEngine = new BABYLON.WebGPUEngine(canvas, { useWebGPU: true });
+            const webGPUEngine = new BABYLON.WebGPUEngine(canvas);
             await webGPUEngine.initAsync();
             engine = webGPUEngine;
             console.log("WebGPU engine initialized successfully");
@@ -97,4 +97,6 @@ const initEngine = async function() {
 };
 
 // Start the application
-initEngine();
+initEngine().catch((error) => {
+    console.error("Failed to initialize engine:", error);
+});
