@@ -47,13 +47,30 @@ http://localhost:8089/index.html
 
 - `index.html` - Main HTML page with canvas element
 - `app.js` - BabylonJS scene setup and camera controls (with WebGPU support)
-- `babylon.js` - BabylonJS library v6.49.0 (non-obfuscated version for better debugging)
 - `glslang/` - WebGPU shader compiler dependencies (glslang.js and glslang.wasm)
 - `package.json` - Project dependencies and scripts
 - `WEBGPU_FIXES.md` - Documentation of WebGPU initialization fixes
 
 ## Technologies Used
 
-- [BabylonJS](https://www.babylonjs.com/) - WebGL/WebGPU-based 3D engine
+- [BabylonJS](https://www.babylonjs.com/) - WebGL/WebGPU-based 3D engine (loaded from CDN)
 - WebGPU - Modern graphics rendering API (with WebGL 2.0 fallback)
 - JavaScript - Scene logic and controls
+
+## BabylonJS CDN Usage
+
+This project loads BabylonJS v6.49.0 dynamically from the official Babylon.js CDN:
+```html
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+```
+
+### Version Locking
+
+The current CDN URL (`https://cdn.babylonjs.com/babylon.js`) always points to the latest stable version. To lock to a specific version and avoid potential breaking changes from future updates, you can use a versioned URL:
+
+```html
+<!-- Lock to specific version (e.g., 6.49.0) -->
+<script src="https://cdn.babylonjs.com/babylon.6.49.0.js"></script>
+```
+
+For more information about available CDN versions and usage, visit: https://doc.babylonjs.com/setup/frameworkPackages/es6Support#cdn
