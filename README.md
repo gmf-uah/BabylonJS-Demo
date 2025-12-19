@@ -59,18 +59,27 @@ http://localhost:8089/index.html
 
 ## BabylonJS CDN Usage
 
-This project loads BabylonJS v6.49.0 dynamically from the official Babylon.js CDN:
+This project loads BabylonJS dynamically from the official Babylon.js CDN:
 ```html
 <script src="https://cdn.babylonjs.com/babylon.js"></script>
 ```
 
-### Version Locking
+**Important Note**: The current implementation uses the unversioned CDN URL which always points to the latest stable version. This is suitable for demos and prototypes but may introduce breaking changes over time.
 
-The current CDN URL (`https://cdn.babylonjs.com/babylon.js`) always points to the latest stable version. To lock to a specific version and avoid potential breaking changes from future updates, you can use a versioned URL:
+### Version Locking (Recommended for Production)
+
+For production applications or to ensure stability, lock to a specific version to avoid potential breaking changes from future updates:
 
 ```html
 <!-- Lock to specific version (e.g., 6.49.0) -->
 <script src="https://cdn.babylonjs.com/babylon.6.49.0.js"></script>
 ```
 
-For more information about available CDN versions and usage, visit: https://doc.babylonjs.com/setup/frameworkPackages/es6Support#cdn
+### Security Considerations
+
+For enhanced security in production environments, consider:
+1. **Subresource Integrity (SRI)**: Add integrity attributes with SRI hashes to ensure scripts haven't been tampered with
+2. **Self-Hosting**: Host Babylon.js on your own CDN/server for better control and reliability
+3. **Version Pinning**: Always use versioned URLs in production
+
+For more information about available CDN versions and usage, visit: https://doc.babylonjs.com/setup/frameworkPackages/CDN
