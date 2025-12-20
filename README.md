@@ -23,40 +23,45 @@ A WebGPU-powered 3D demo using Babylon.js, featuring a fly camera that allows us
 - A modern browser with WebGPU support:
   - Chrome 113+ or Edge 113+ with WebGPU enabled
   - Or any browser with native WebGPU support
+- Node.js (for running a local development server)
 
 ## Getting Started
 
-### Option 1: View the Demo Directly
-
-Simply open `index.html` in a WebGPU-supported browser. The bundled JavaScript is already included.
-
-### Option 2: Build from Source
-
-1. Install dependencies:
+1. Start a local development server:
    ```bash
-   npm install
+   npx http-server -p 8080
    ```
-
-2. Build the bundle:
-   ```bash
-   npm run build
-   ```
-
-3. Open `index.html` in your browser or use a local server:
+   Or use Python:
    ```bash
    python3 -m http.server 8080
    ```
-   Then navigate to `http://localhost:8080`
+   Or use Node.js:
+   ```bash
+   npx serve
+   ```
+
+2. Open your browser and navigate to:
+   ```
+   http://localhost:8080
+   ```
+
+That's it! No build step required - the application loads Babylon.js directly from the CDN.
 
 ## Project Structure
 
 - `index.html` - Main HTML file with the 3D canvas and UI
 - `src/main.js` - Main application logic and scene setup
-- `dist/bundle.js` - Bundled JavaScript (generated from src/main.js)
-- `package.json` - NPM dependencies and build scripts
+- No build artifacts or bundled files needed!
+
+## How It Works
+
+The application loads Babylon.js directly from the official CDN (`https://cdn.babylonjs.com/babylon.js`). This means:
+- No build step required
+- No bundling needed
+- Edit `src/main.js` and refresh the browser to see changes
+- Babylon.js is always up-to-date from the CDN
 
 ## Technology Stack
 
-- **Babylon.js** - 3D engine framework
+- **Babylon.js** - 3D engine framework (loaded from CDN)
 - **WebGPU** - Modern graphics API
-- **esbuild** - Fast JavaScript bundler

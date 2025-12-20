@@ -1,5 +1,3 @@
-import * as BABYLON from '@babylonjs/core';
-
 const canvas = document.getElementById("renderCanvas");
 const errorMessage = document.getElementById("error-message");
 
