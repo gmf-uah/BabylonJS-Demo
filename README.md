@@ -1,59 +1,67 @@
 # BabylonJS-Demo
 
-A simple 3D web application using BabylonJS that allows users to fly their camera around a scene with a cube as a reference point.
+A WebGPU-powered 3D demo using Babylon.js, featuring a fly camera that allows users to navigate through a 3D scene.
 
 ## Features
 
-- **Fly Camera Controls**: Navigate the 3D scene freely
-  - W/A/S/D or Arrow Keys - Move camera forward/left/backward/right
-  - Mouse - Look around
-  - Space - Move up
-  - Shift - Move down
-- **3D Scene**: A red cube positioned at the center as a reference point
-- **Ground Plane**: Green ground for spatial orientation
-- **Sky Background**: Blue sky for an immersive environment
+- **WebGPU Engine**: Uses Babylon.js WebGPU API for modern, high-performance 3D graphics
+- **Fly Camera**: Navigate the 3D space with keyboard controls
+- **Pointer Lock**: Hold right mouse button to look around without cursor limitations
+- **3D Scene**: Includes a rotating blue cube and ground plane for orientation
+- **Error Handling**: Displays appropriate messages if WebGPU is not supported
+
+## Controls
+
+- **W** - Move Forward
+- **S** - Move Backward
+- **A** - Move Left
+- **D** - Move Right
+- **RMB (Hold)** - Look Around (with pointer lock)
 
 ## Requirements
 
-- Node.js and npm
-- Modern web browser with WebGL 2.0 support (or WebGPU for enhanced performance)
+- A modern browser with WebGPU support:
+  - Chrome 113+ or Edge 113+ with WebGPU enabled
+  - Or any browser with native WebGPU support
+- Node.js (for running a local development server)
 
-## Installation
+## Getting Started
 
-1. Clone the repository:
+1. Start a local development server:
    ```bash
-   git clone https://github.com/gmf-uah/BabylonJS-Demo.git
-   cd BabylonJS-Demo
+   npx http-server -p 8080
+   ```
+   Or use Python:
+   ```bash
+   python3 -m http.server 8080
+   ```
+   Or use Node.js:
+   ```bash
+   npx serve
    ```
 
-2. Install dependencies:
-   ```bash
-   npm install
+2. Open your browser and navigate to:
+   ```
+   http://localhost:8080
    ```
 
-## Running the Demo
-
-Start the local server:
-```bash
-npm start
-```
-
-Then open your browser and navigate to:
-```
-http://localhost:8089/index.html
-```
+That's it! No build step required - the application loads Babylon.js directly from the CDN.
 
 ## Project Structure
 
-- `index.html` - Main HTML page with canvas element
-- `app.js` - BabylonJS scene setup and camera controls (with WebGPU support)
-- `babylon.js` - BabylonJS library v6.49.0 (non-obfuscated version for better debugging)
-- `glslang/` - WebGPU shader compiler dependencies (glslang.js and glslang.wasm)
-- `package.json` - Project dependencies and scripts
-- `WEBGPU_FIXES.md` - Documentation of WebGPU initialization fixes
+- `index.html` - Main HTML file with the 3D canvas and UI
+- `src/main.js` - Main application logic and scene setup
+- No build artifacts or bundled files needed!
 
-## Technologies Used
+## How It Works
 
-- [BabylonJS](https://www.babylonjs.com/) - WebGL/WebGPU-based 3D engine
-- WebGPU - Modern graphics rendering API (with WebGL 2.0 fallback)
-- JavaScript - Scene logic and controls
+The application loads Babylon.js directly from the official CDN (`https://cdn.babylonjs.com/babylon.js`). This means:
+- No build step required
+- No bundling needed
+- Edit `src/main.js` and refresh the browser to see changes
+- Babylon.js is always up-to-date from the CDN
+
+## Technology Stack
+
+- **Babylon.js** - 3D engine framework (loaded from CDN)
+- **WebGPU** - Modern graphics API

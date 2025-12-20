@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BabylonJS Demo - Fly Camera with Cube</title>
+    <title>BabylonJS WebGPU Demo - Fly Camera</title>
     <style>
         body {
             margin: 0;
@@ -14,43 +14,49 @@
         #renderCanvas {
             width: 100%;
             height: 100vh;
-            display: block;
+            touch-action: none;
         }
-        #instructions {
+        #error-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 80%;
+        }
+        #controls-info {
             position: absolute;
             top: 10px;
             left: 10px;
-            background: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 15px;
             border-radius: 5px;
             font-size: 14px;
-            z-index: 100;
-        }
-        #instructions h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        #instructions ul {
-            margin: 0;
-            padding-left: 20px;
         }
     </style>
 </head>
 <body>
-    <div id="instructions">
-        <h3>Camera Controls</h3>
-        <ul>
-            <li><strong>W/A/S/D</strong> or <strong>Arrow Keys</strong> - Move camera</li>
-            <li><strong>Mouse</strong> - Look around</li>
-            <li><strong>Space</strong> - Move up</li>
-            <li><strong>Shift</strong> - Move down</li>
-        </ul>
-    </div>
     <canvas id="renderCanvas"></canvas>
+    <div id="error-message"></div>
+    <div id="controls-info">
+        <strong>Camera Controls:</strong><br>
+        W - Move Forward<br>
+        S - Move Backward<br>
+        A - Move Left<br>
+        D - Move Right<br>
+        RMB (Hold) - Look Around
+    </div>
+
+    <!-- Babylon.js from CDN -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
     
-    <!-- BabylonJS v6.49.0 - Using non-obfuscated version for better debugging -->
-    <script src="babylon.js"></script>
-    <script src="app.js"></script>
+    <!-- Application code -->
+    <script src="src/main.js"></script>
 </body>
 </html>
