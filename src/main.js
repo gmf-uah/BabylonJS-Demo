@@ -67,7 +67,9 @@ function createScene(engine) {
     let isPointerLocked = false;
     
     // Handle right mouse button down - request pointer lock
+    console.log("bruh");
     canvas.addEventListener("mousedown", (event) => {
+        console.log(event.button);
         if (event.button === 2) { // Right mouse button
             canvas.requestPointerLock().catch((error) => {
                 console.warn("Pointer lock request failed:", error);
