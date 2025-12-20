@@ -49,7 +49,7 @@ function createScene(engine) {
     // Point the camera at the origin
     camera.setTarget(BABYLON.Vector3.Zero());
     
-    // Attach camera controls to the canvas
+    // Disable default camera controls initially - we'll set up custom controls
     camera.attachControl(canvas, true);
     
     // Configure camera for fly-like movement
@@ -61,6 +61,48 @@ function createScene(engine) {
     // Adjust camera speed for better flying experience
     camera.speed = 0.5;
     camera.angularSensibility = 1000;
+    
+    // Disable default mouse input - we'll handle it manually
+    camera.inputs.removeByType("FreeCameraMouseInput");
+    
+    // Set up pointer lock for camera panning with RMB
+    let isPointerLocked = false;
+    
+    // Handle right mouse button down - request pointer lock
+    canvas.addEventListener("mousedown", (event) => {
+        if (event.button === 2) { // Right mouse button
+            canvas.requestPointerLock();
+        }
+    });
+    
+    // Handle right mouse button up - exit pointer lock
+    canvas.addEventListener("mouseup", (event) => {
+        if (event.button === 2) { // Right mouse button
+            document.exitPointerLock();
+        }
+    });
+    
+    // Track pointer lock state
+    document.addEventListener("pointerlockchange", () => {
+        isPointerLocked = document.pointerLockElement === canvas;
+    });
+    
+    // Handle mouse movement for camera rotation when pointer is locked
+    canvas.addEventListener("mousemove", (event) => {
+        if (isPointerLocked) {
+            const movementX = event.movementX || 0;
+            const movementY = event.movementY || 0;
+            
+            // Rotate camera based on mouse movement
+            camera.rotation.y += movementX / camera.angularSensibility;
+            camera.rotation.x += movementY / camera.angularSensibility;
+        }
+    });
+    
+    // Prevent context menu on right click
+    canvas.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+    });
 
     // Create a light
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);

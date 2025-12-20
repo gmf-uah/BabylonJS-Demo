@@ -6,6 +6,7 @@ A WebGPU-powered 3D demo using Babylon.js, featuring a fly camera that allows us
 
 - **WebGPU Engine**: Uses Babylon.js WebGPU API for modern, high-performance 3D graphics
 - **Fly Camera**: Navigate the 3D space with keyboard controls
+- **Pointer Lock**: Hold right mouse button to look around without cursor limitations
 - **3D Scene**: Includes a rotating blue cube and ground plane for orientation
 - **Error Handling**: Displays appropriate messages if WebGPU is not supported
 
@@ -15,7 +16,7 @@ A WebGPU-powered 3D demo using Babylon.js, featuring a fly camera that allows us
 - **S** - Move Backward
 - **A** - Move Left
 - **D** - Move Right
-- **Mouse** - Look Around
+- **RMB (Hold)** - Look Around (with pointer lock)
 
 ## Requirements
 
