@@ -71,7 +71,9 @@ function createScene(engine) {
     // Handle right mouse button down - request pointer lock
     canvas.addEventListener("mousedown", (event) => {
         if (event.button === 2) { // Right mouse button
-            canvas.requestPointerLock();
+            canvas.requestPointerLock().catch((error) => {
+                console.warn("Pointer lock request failed:", error);
+            });
         }
     });
     
@@ -95,7 +97,10 @@ function createScene(engine) {
             
             // Rotate camera based on mouse movement
             camera.rotation.y += movementX / camera.angularSensibility;
-            camera.rotation.x += movementY / camera.angularSensibility;
+            
+            // Clamp vertical rotation to prevent camera from flipping upside down
+            const newRotationX = camera.rotation.x + movementY / camera.angularSensibility;
+            camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, newRotationX));
         }
     });
     
