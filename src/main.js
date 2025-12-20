@@ -10,7 +10,7 @@ async function initWebGPU() {
     try {
         // Check if WebGPU is supported
         if (!navigator.gpu) {
-            throw new Error("WebGPU is not supported in your browser. Please use a browser with WebGPU support (e.g., Chrome 113+, Edge 113+).");
+            throw new Error("WebGPU is not supported in your browser.");
         }
 
         // Create the WebGPU engine
@@ -40,6 +40,16 @@ async function initWebGPU() {
 function createScene(engine) {
     // Create a basic scene
     const scene = new BABYLON.Scene(engine);
+    scene.fogEnd = 100;
+    
+    // Create a skybox
+    const skybox = BABYLON.MeshBuilder.CreateBox("skyBox", { size: 1000.0 }, scene);
+    const skyboxMaterial = new BABYLON.StandardMaterial("skyBoxMaterial", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.disableLighting = true;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("https://playground.babylonjs.com/textures/skybox", scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skybox.material = skyboxMaterial;
 
     // Create a FreeCamera with fly-like movement
     const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
@@ -47,74 +57,65 @@ function createScene(engine) {
     // Point the camera at the origin
     camera.setTarget(BABYLON.Vector3.Zero());
     
-    // Disable default camera controls initially - we'll set up custom controls
-    camera.attachControl(canvas, true);
-    
+    // Set up pointer lock for camera panning with RMB (custom mouse controls)
+    let isPointerLocked = false;
+    canvas.addEventListener("pointerdown", (event) => {
+        if (event.button === 2) { // Right mouse button
+            canvas.requestPointerLock().catch(() => {});
+        }
+    });
+    canvas.addEventListener("pointerup", (event) => {
+        if (event.button === 2) {
+            document.exitPointerLock();
+        }
+    });
+    document.addEventListener("pointerlockchange", () => {
+        isPointerLocked = document.pointerLockElement === canvas;
+    });
+    canvas.addEventListener("mousemove", (event) => {
+        if (isPointerLocked) {
+            let movementX = event.movementX;
+            let movementY = event.movementY;
+            if (!Number.isFinite(movementX)) movementX = 0;
+            if (!Number.isFinite(movementY)) movementY = 0;
+            let newY = camera.rotation.y + movementX / camera.angularSensibility;
+            let newRotationX = camera.rotation.x + movementY / camera.angularSensibility;
+            // Clamp values to prevent NaN/Infinity
+            if (!Number.isFinite(newY)) newY = 0;
+            if (!Number.isFinite(newRotationX)) newRotationX = 0;
+            camera.rotation.y = newY;
+            camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, newRotationX));
+        }
+    });
+    canvas.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+    });
+
+    // Attach Babylon controls but DISABLE built-in mouse (second arg = false)
+    camera.attachControl(canvas, false);
+
     // Configure camera for fly-like movement
     camera.keysUp.push(87);    // W key
     camera.keysDown.push(83);  // S key
     camera.keysLeft.push(65);  // A key
     camera.keysRight.push(68); // D key
-    
+    camera.keysUpward.push(69);// E key
+    camera.keysDownward.push(81);// Q key
+
+    // Remove default mouse input (should be redundant, but safe)
+    // camera.inputs.removeByType("FreeCameraMouseInput");
+    camera.angularSensibility = 5000;
+
     // Adjust camera speed for better flying experience
-    camera.speed = 0.5;
-    camera.angularSensibility = 1000;
-    
-    // Disable default mouse input - we'll handle it manually
-    camera.inputs.removeByType("FreeCameraMouseInput");
-    
-    // Set up pointer lock for camera panning with RMB
-    let isPointerLocked = false;
-    
-    // Handle right mouse button down - request pointer lock
-    console.log("bruh");
-    canvas.addEventListener("mousedown", (event) => {
-        console.log(event.button);
-        if (event.button === 2) { // Right mouse button
-            canvas.requestPointerLock().catch((error) => {
-                console.warn("Pointer lock request failed:", error);
-            });
-        }
-    });
-    
-    // Handle right mouse button up - exit pointer lock
-    canvas.addEventListener("mouseup", (event) => {
-        if (event.button === 2) { // Right mouse button
-            document.exitPointerLock();
-        }
-    });
-    
-    // Track pointer lock state
-    document.addEventListener("pointerlockchange", () => {
-        isPointerLocked = document.pointerLockElement === canvas;
-    });
-    
-    // Handle mouse movement for camera rotation when pointer is locked
-    canvas.addEventListener("mousemove", (event) => {
-        if (isPointerLocked) {
-            const movementX = event.movementX || 0;
-            const movementY = event.movementY || 0;
-            
-            // Rotate camera based on mouse movement
-            camera.rotation.y += movementX / camera.angularSensibility;
-            
-            // Clamp vertical rotation to prevent camera from flipping upside down
-            const newRotationX = camera.rotation.x + movementY / camera.angularSensibility;
-            camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, newRotationX));
-        }
-    });
-    
-    // Prevent context menu on right click
-    canvas.addEventListener("contextmenu", (event) => {
-        event.preventDefault();
-    });
+    camera.speed = 15;
+    // camera.angularSensibility is now set after removeByType above
 
     // Create a light
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 0.7;
 
     // Create a blue cube at the center as orientation reference
-    const cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 2 }, scene);
+    const cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 20 }, scene);
     cube.position = new BABYLON.Vector3(0, 1, 0);
     
     // Create a blue material for the cube
@@ -123,19 +124,12 @@ function createScene(engine) {
     cubeMaterial.specularColor = new BABYLON.Color3(0.5, 0.5, 0.5);
     cube.material = cubeMaterial;
 
-    // Create a ground plane for reference
-    const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 20, height: 20 }, scene);
-    
-    // Create a material for the ground
-    const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5); // Gray color
-    groundMaterial.specularColor = new BABYLON.Color3(0.2, 0.2, 0.2);
-    ground.material = groundMaterial;
-
-    // Add some rotation to the cube for visual effect
-    scene.registerBeforeRender(() => {
-        cube.rotation.y += 0.01;
-        cube.rotation.x += 0.005;
+    scene.onBeforeRenderObservable.add(() => {
+        const dt = scene.getEngine().getDeltaTime() * 0.001;
+        cube.rotation.y += 1.0 * dt;
+        cube.rotation.x += 0.6 * dt;
+        // Snap skybox to camera position
+        skybox.position.copyFrom(camera.position);
     });
 
     return scene;

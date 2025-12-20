@@ -42,21 +42,45 @@
     </style>
 </head>
 <body>
-    <canvas id="renderCanvas"></canvas>
-    <div id="error-message"></div>
-    <div id="controls-info">
-        <strong>Camera Controls:</strong><br>
-        W - Move Forward<br>
-        S - Move Backward<br>
-        A - Move Left<br>
-        D - Move Right<br>
-        RMB (Hold) - Look Around
-    </div>
 
-    <!-- Babylon.js from CDN -->
-    <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    
-    <!-- Application code -->
-    <script src="src/main.js"></script>
+        <canvas id="renderCanvas" tabindex="0"></canvas>
+        <div id="error-message"></div>
+        <button id="controls-toggle" title="Show controls" style="position:absolute;top:10px;left:10px;width:40px;height:40px;border-radius:8px;background:#222;border:none;display:flex;align-items:center;justify-content:center;z-index:10;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/icons/keyboard.svg" alt="Keyboard Icon" width="28" height="28" style="filter:invert(0.8);">
+        </button>
+        <div id="controls-popup" style="display:none;position:absolute;top:60px;left:10px;min-width:220px;max-width:320px;background:rgba(30,30,30,0.98);color:#fff;padding:18px 20px 16px 20px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.25);font-size:15px;z-index:20;line-height:1.7;"></div>
+
+        <!-- Babylon.js from CDN -->
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+
+        <!-- Controls popup logic -->
+        <script>
+        // Controls info as HTML
+        const controlsHtml = `
+            <strong>Camera Controls</strong><br>
+            <span style="color:#8cf">WASD, QE</span> to move<br>
+            <span style="color:#8cf">RMB (Hold)</span> - Look Around
+        `;
+        window.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('controls-toggle');
+            const popup = document.getElementById('controls-popup');
+            let visible = false;
+            btn.addEventListener('click', () => {
+                visible = !visible;
+                popup.style.display = visible ? 'block' : 'none';
+                if (visible) popup.innerHTML = controlsHtml;
+            });
+            // Hide popup if clicking outside
+            document.addEventListener('mousedown', (e) => {
+                if (visible && !btn.contains(e.target) && !popup.contains(e.target)) {
+                    popup.style.display = 'none';
+                    visible = false;
+                }
+            });
+        });
+        </script>
+
+        <!-- Application code -->
+        <script src="src/main.js"></script>
 </body>
 </html>
