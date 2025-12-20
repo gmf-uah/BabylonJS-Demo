@@ -1,87 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Minesweeper Number Colors</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff;
-      margin: 40px;
-    }
-    table {
-      border-collapse: collapse;
-      margin: auto;
-      font-size: 1.2em;
-    }
-    th, td {
-      padding: 12px 18px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-    .color-cell {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;
-    }
-    .color-preview {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 1px solid #aaa;
-      margin-right: 8px;
-      flex-shrink: 0;
-    }
-  </style>
-</head>
-<body>
-  <table>
-    <tr>
-      <th>Number</th>
-      <th>Color</th>
-      <th>Hex Code</th>
-    </tr>
-    <tr>
-      <td style="color: #0000FF; font-weight: bold;">1</td>
-      <td class="color-cell"><span class="color-preview" style="background: #0000FF;"></span><span>Blue</span></td>
-      <td>#0000FF</td>
-    </tr>
-    <tr>
-      <td style="color: #008200; font-weight: bold;">2</td>
-      <td class="color-cell"><span class="color-preview" style="background: #008200;"></span><span>Green</span></td>
-      <td>#008200</td>
-    </tr>
-    <tr>
-      <td style="color: #FF0000; font-weight: bold;">3</td>
-      <td class="color-cell"><span class="color-preview" style="background: #FF0000;"></span><span>Red</span></td>
-      <td>#FF0000</td>
-    </tr>
-    <tr>
-      <td style="color: #000084; font-weight: bold;">4</td>
-      <td class="color-cell"><span class="color-preview" style="background: #000084;"></span><span>Dark Blue</span></td>
-      <td>#000084</td>
-    </tr>
-    <tr>
-      <td style="color: #840000; font-weight: bold;">5</td>
-      <td class="color-cell"><span class="color-preview" style="background: #840000;"></span><span>Dark Red</span></td>
-      <td>#840000</td>
-    </tr>
-    <tr>
-      <td style="color: #008284; font-weight: bold;">6</td>
-      <td class="color-cell"><span class="color-preview" style="background: #008284;"></span><span>Turquoise</span></td>
-      <td>#008284</td>
-    </tr>
-    <tr>
-      <td style="color: #840084; font-weight: bold;">7</td>
-      <td class="color-cell"><span class="color-preview" style="background: #840084;"></span><span>Violet</span></td>
-      <td>#840084</td>
-    </tr>
-    <tr>
-      <td style="color: #000000; font-weight: bold;">8</td>
-      <td class="color-cell"><span class="color-preview" style="background: #000000;"></span><span>Black</span></td>
-      <td>#000000</td>
-    </tr>
-  </table>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Minesweeper Number Colors</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #fff;
+                margin: 40px;
+            }
+            table {
+                border-collapse: collapse;
+                margin: auto;
+                font-size: 1.2em;
+            }
+            th,
+            td {
+                padding: 12px 18px;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+            .color-cell {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+            .color-preview {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 1px solid #aaa;
+                margin-right: 8px;
+                flex-shrink: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Number</th>
+                <th>Color</th>
+                <th>Hex Code</th>
+            </tr>
+            <tr>
+                <td style="color: #0000ff; font-weight: bold">1</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #0000ff"
+                    ></span
+                    ><span>Blue</span>
+                </td>
+                <td>#0000FF</td>
+            </tr>
+            <tr>
+                <td style="color: #008200; font-weight: bold">2</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #008200"
+                    ></span
+                    ><span>Green</span>
+                </td>
+                <td>#008200</td>
+            </tr>
+            <tr>
+                <td style="color: #ff0000; font-weight: bold">3</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #ff0000"
+                    ></span
+                    ><span>Red</span>
+                </td>
+                <td>#FF0000</td>
+            </tr>
+            <tr>
+                <td style="color: #000084; font-weight: bold">4</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #000084"
+                    ></span
+                    ><span>Dark Blue</span>
+                </td>
+                <td>#000084</td>
+            </tr>
+            <tr>
+                <td style="color: #840000; font-weight: bold">5</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #840000"
+                    ></span
+                    ><span>Dark Red</span>
+                </td>
+                <td>#840000</td>
+            </tr>
+            <tr>
+                <td style="color: #008284; font-weight: bold">6</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #008284"
+                    ></span
+                    ><span>Turquoise</span>
+                </td>
+                <td>#008284</td>
+            </tr>
+            <tr>
+                <td style="color: #840084; font-weight: bold">7</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #840084"
+                    ></span
+                    ><span>Violet</span>
+                </td>
+                <td>#840084</td>
+            </tr>
+            <tr>
+                <td style="color: #000000; font-weight: bold">8</td>
+                <td class="color-cell">
+                    <span
+                        class="color-preview"
+                        style="background: #000000"
+                    ></span
+                    ><span>Black</span>
+                </td>
+                <td>#000000</td>
+            </tr>
+        </table>
+    </body>
 </html>
