@@ -48,6 +48,6 @@ export function initCamera(canvas, scene) {
     camera.keysRight.push(68); // d
     camera.keysUpward.push(69); // e
     camera.keysDownward.push(81); // q
-    camera.angularSensibility = 500;
+    camera.angularSensibility = 5000;
     camera.speed = 50;
 }
