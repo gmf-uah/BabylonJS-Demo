@@ -18,6 +18,6 @@ export function createGame(scene) {
         // cube.rotation.x += 0.6 * dt;
     });
 
-    // Expose cube for later game logic
+    // Expose cube for later game logic (this is dumb)
     scene._mainCube = cube;
 }

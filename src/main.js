@@ -17,8 +17,8 @@ async function initWebGPU() {
         const engine = new BABYLON.WebGPUEngine(canvas);
         await engine.initAsync();
         const scene = createScene(engine);
-        initCamera(canvas, scene);
         createGame(scene);
+        initCamera(canvas, scene);
         engine.runRenderLoop(() => {
             scene.render();
         });

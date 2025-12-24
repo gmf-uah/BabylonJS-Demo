@@ -4,7 +4,6 @@
 export function createScene(engine) {
     const scene = new BABYLON.Scene(engine);
 
-    // Skybox
     const skybox = scene.createDefaultSkybox(
         new BABYLON.CubeTexture("https://playground.babylonjs.com/textures/TropicalSunnyDay", scene),
         false,
