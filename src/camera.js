@@ -48,6 +48,99 @@ export function initCamera(canvas, scene) {
     camera.keysRight.push(68); // d
     camera.keysUpward.push(69); // e
     camera.keysDownward.push(81); // q
+    
+    // Custom camera roll input
+    const CameraRollInput = function () {
+        this._keys = [];
+        this.keysRollLeft = [90]; // z
+        this.keysRollRight = [67]; // c
+        this.rollSensibility = 0.01;
+    };
+    
+    CameraRollInput.prototype.getClassName = function () {
+        return "CameraRollInput";
+    };
+    
+    CameraRollInput.prototype.getSimpleName = function () {
+        return "roll";
+    };
+    
+    CameraRollInput.prototype.attachControl = function (noPreventDefault) {
+        const _this = this;
+        const engine = this.camera.getEngine();
+        const element = engine.getInputElement();
+        
+        if (!this._onKeyDown) {
+            element.tabIndex = 1;
+            this._onKeyDown = function (evt) {
+                if (_this.keysRollLeft.indexOf(evt.keyCode) !== -1 || _this.keysRollRight.indexOf(evt.keyCode) !== -1) {
+                    const index = _this._keys.indexOf(evt.keyCode);
+                    if (index === -1) {
+                        _this._keys.push(evt.keyCode);
+                    }
+                    if (!noPreventDefault) {
+                        evt.preventDefault();
+                    }
+                }
+            };
+            
+            this._onKeyUp = function (evt) {
+                if (_this.keysRollLeft.indexOf(evt.keyCode) !== -1 || _this.keysRollRight.indexOf(evt.keyCode) !== -1) {
+                    const index = _this._keys.indexOf(evt.keyCode);
+                    if (index >= 0) {
+                        _this._keys.splice(index, 1);
+                    }
+                    if (!noPreventDefault) {
+                        evt.preventDefault();
+                    }
+                }
+            };
+            
+            this._onLostFocus = function () {
+                _this._keys = [];
+            };
+            
+            element.addEventListener("keydown", this._onKeyDown, false);
+            element.addEventListener("keyup", this._onKeyUp, false);
+            BABYLON.Tools.RegisterTopRootEvents(canvas, [{ name: "blur", handler: this._onLostFocus }]);
+        }
+    };
+    
+    CameraRollInput.prototype.detachControl = function () {
+        const engine = this.camera.getEngine();
+        const element = engine.getInputElement();
+        
+        if (this._onKeyDown) {
+            element.removeEventListener("keydown", this._onKeyDown);
+            element.removeEventListener("keyup", this._onKeyUp);
+            BABYLON.Tools.UnregisterTopRootEvents(canvas, [{ name: "blur", handler: this._onLostFocus }]);
+            this._keys = [];
+            this._onKeyDown = null;
+            this._onKeyUp = null;
+        }
+    };
+    
+    CameraRollInput.prototype.checkInputs = function () {
+        if (this._onKeyDown) {
+            const camera = this.camera;
+            // Apply roll rotation around the camera's forward vector
+            for (let index = 0; index < this._keys.length; index++) {
+                const keyCode = this._keys[index];
+                if (this.keysRollLeft.indexOf(keyCode) !== -1) {
+                    // Roll left (clockwise when looking forward)
+                    camera.rotate(camera.getDirection(BABYLON.Vector3.Forward()), this.rollSensibility);
+                } else if (this.keysRollRight.indexOf(keyCode) !== -1) {
+                    // Roll right (counter-clockwise when looking forward)
+                    camera.rotate(camera.getDirection(BABYLON.Vector3.Forward()), -this.rollSensibility);
+                }
+            }
+        }
+    };
+    
+    // Add the custom roll input to the camera
+    camera.inputs.add(new CameraRollInput());
+    
     camera.angularSensibility = 5000;
+    console.log(camera);
     camera.speed = .5;
 }

@@ -1,0 +1,50 @@
+self.__BUILD_MANIFEST = {
+  "/": [
+    "static/chunks/7044ed55386353ea.js"
+  ],
+  "/404": [
+    "static/chunks/0d66be416503efb8.js"
+  ],
+  "/[...id]": [
+    "static/chunks/748fee20fc834e8f.js"
+  ],
+  "/_error": [
+    "static/chunks/c56f784de67723fe.js"
+  ],
+  "/examples": [
+    "static/chunks/ea00f591ba749bb2.js"
+  ],
+  "/packages/viewer/[...id]": [
+    "static/chunks/b87583d3c4f786ac.js"
+  ],
+  "/playground": [
+    "static/chunks/bf4ec54563b8d003.js"
+  ],
+  "/search": [
+    "static/chunks/d77910905afc14b1.js"
+  ],
+  "/toggleColor": [
+    "static/chunks/9d1e6aaec6430a63.js"
+  ],
+  "/typedoc/[...id]": [
+    "static/chunks/193890d48e783aab.js"
+  ],
+  "__rewrites": {
+    "afterFiles": [],
+    "beforeFiles": [],
+    "fallback": []
+  },
+  "sortedPages": [
+    "/",
+    "/404",
+    "/_app",
+    "/_error",
+    "/examples",
+    "/packages/viewer/[...id]",
+    "/playground",
+    "/search",
+    "/toggleColor",
+    "/typedoc/[...id]",
+    "/[...id]"
+  ]
+};self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()
