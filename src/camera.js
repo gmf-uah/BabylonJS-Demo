@@ -6,14 +6,14 @@ const getElapsedTime = (function(){
 })()
 
 export function initCamera(canvas, scene) {
-    
     const position = (function(){
     // Camera position using spherical coordinates
-        // const rho = scene._mainCube.scaling; // fixed distance
-        const rho = 500; // fixed distance
+        const rho = 20; // fixed distance
         const theta = Math.random() * Math.PI * 2; // horizontal angle [0, 2π]
-        // vertical angle [π/3, π/2] with the horizon, so camera looks slightly downward
-        const phi = (Math.PI / 3) + Math.random() * (Math.PI / 6);
+        // vertical angle phi in range [π/4, 5π/12], so camera looks slightly downward
+        // https://www.desmos.com/3d/twmjgedzbx
+        const phi = (Math.PI / 4) + Math.random() * (Math.PI / 6);
+        console.log(phi)
         const cameraX = rho * Math.sin(phi) * Math.cos(theta);
         const cameraY = rho * Math.cos(phi);
         const cameraZ = rho * Math.sin(phi) * Math.sin(theta);
@@ -49,5 +49,5 @@ export function initCamera(canvas, scene) {
     camera.keysUpward.push(69); // e
     camera.keysDownward.push(81); // q
     camera.angularSensibility = 5000;
-    camera.speed = 0.5;
+    camera.speed = .5;
 }
