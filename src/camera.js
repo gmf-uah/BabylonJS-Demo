@@ -123,15 +123,15 @@ export function initCamera(canvas, scene) {
     CameraRollInput.prototype.checkInputs = function () {
         if (this._onKeyDown) {
             const camera = this.camera;
-            // Apply roll rotation around the camera's forward vector
+            // Apply roll by modifying the z rotation directly
             for (let index = 0; index < this._keys.length; index++) {
                 const keyCode = this._keys[index];
                 if (this.keysRollLeft.indexOf(keyCode) !== -1) {
                     // Roll left (clockwise when looking forward)
-                    camera.rotate(camera.getDirection(BABYLON.Vector3.Forward()), this.rollSensibility);
+                    camera.rotation.z += this.rollSensibility;
                 } else if (this.keysRollRight.indexOf(keyCode) !== -1) {
                     // Roll right (counter-clockwise when looking forward)
-                    camera.rotate(camera.getDirection(BABYLON.Vector3.Forward()), -this.rollSensibility);
+                    camera.rotation.z -= this.rollSensibility;
                 }
             }
         }
