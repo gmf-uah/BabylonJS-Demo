@@ -141,6 +141,6 @@ export function initCamera(canvas, scene) {
     camera.inputs.add(new CameraRollInput());
     
     camera.angularSensibility = 5000;
-    console.log(camera);
     camera.speed = .5;
+    console.log(camera);
 }
