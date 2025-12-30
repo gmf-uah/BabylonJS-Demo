@@ -28,24 +28,44 @@ function getClientIP(req) {
            (req.connection.socket ? req.connection.socket.remoteAddress : null);
 }
 
-// Helper function to sanitize IP for filename (replace colons and dots with underscores)
-function sanitizeIP(ip) {
-    return ip.replace(/[:.]/g, '_');
+// Helper function to get the main persistence file path
+function getPersistenceFilePath() {
+    return path.join(__dirname, '../../persistence', 'users.json');
 }
 
-// Helper function to get persistence file path for an IP
-function getPersistenceFilePath(ip) {
-    const sanitized = sanitizeIP(ip);
-    return path.join(__dirname, '../../persistence', `user_${sanitized}.json`);
+// Helper function to load all user data
+function loadAllUserData() {
+    try {
+        const filePath = getPersistenceFilePath();
+        if (fs.existsSync(filePath)) {
+            const data = fs.readFileSync(filePath, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (error) {
+        console.error('Error loading user data:', error);
+    }
+    // Return default structure
+    return { users: {} };
+}
+
+// Helper function to save all user data
+function saveAllUserData(allUserData) {
+    try {
+        const filePath = getPersistenceFilePath();
+        fs.writeFileSync(filePath, JSON.stringify(allUserData, null, 2));
+        return true;
+    } catch (error) {
+        console.error('Error saving user data:', error);
+        return false;
+    }
 }
 
 // Helper function to load user preferences
 function loadUserPreferences(ip) {
     try {
-        const filePath = getPersistenceFilePath(ip);
-        if (fs.existsSync(filePath)) {
-            const data = fs.readFileSync(filePath, 'utf8');
-            return JSON.parse(data);
+        const allUserData = loadAllUserData();
+        if (allUserData.users[ip]) {
+            return allUserData.users[ip];
         }
     } catch (error) {
         console.error('Error loading preferences for IP', ip, ':', error);
@@ -53,20 +73,21 @@ function loadUserPreferences(ip) {
     // Return default preferences
     return {
         usePointerLock: false,
-        lastUpdated: new Date().toISOString()
+        lastUpdated: Date.now()
     };
 }
 
 // Helper function to save user preferences
 function saveUserPreferences(ip, preferences) {
     try {
-        const filePath = getPersistenceFilePath(ip);
-        const data = {
+        const allUserData = loadAllUserData();
+        const updatedPreferences = {
             ...preferences,
-            lastUpdated: new Date().toISOString()
+            lastUpdated: Date.now()
         };
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-        return true;
+        
+        allUserData.users[ip] = updatedPreferences;
+        return saveAllUserData(allUserData);
     } catch (error) {
         console.error('Error saving preferences for IP', ip, ':', error);
         return false;
@@ -101,10 +122,17 @@ app.post('/api/preferences', (req, res) => {
     }
 });
 
-// Create persistence directory if it doesn't exist
+// Create persistence directory and file if they don't exist
 const persistenceDir = path.join(__dirname, '../../persistence');
 if (!fs.existsSync(persistenceDir)) {
     fs.mkdirSync(persistenceDir, { recursive: true });
+}
+
+// Initialize users.json file if it doesn't exist
+const usersFilePath = getPersistenceFilePath();
+if (!fs.existsSync(usersFilePath)) {
+    const initialData = { users: {} };
+    fs.writeFileSync(usersFilePath, JSON.stringify(initialData, null, 2));
 }
 
 // Start server with HTTPS (using existing certificates)
@@ -115,5 +143,5 @@ const options = {
 
 https.createServer(options, app).listen(port, () => {
     console.log(`3D Minesweeper server running on https://localhost:${port}`);
-    console.log('Persistence data will be stored in:', persistenceDir);
+    // console.log('User data will be stored in:', usersFilePath);
 });
