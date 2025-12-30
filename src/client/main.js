@@ -2,6 +2,7 @@
 import { createScene } from "./scene.js";
 import { createGame } from "./game.js";
 import { initCamera } from "./camera.js";
+import preferencesManager from "./preferences.js";
 
 const canvas = document.getElementById("renderCanvas");
 const errorMessage = document.getElementById("error-message");
@@ -14,6 +15,11 @@ async function initWebGPU() {
         if (!navigator.gpu) {
             throw new Error("WebGPU is not supported in your browser.");
         }
+        
+        // Load preferences before initializing anything else
+        const preferences = await preferencesManager.getPreferences();
+        window.usePointerLock = preferences.usePointerLock;
+        
         const engine = new BABYLON.WebGPUEngine(canvas);
         await engine.initAsync();
         const scene = createScene(engine);

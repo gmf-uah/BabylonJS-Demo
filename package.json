@@ -1,0 +1,21 @@
+{
+  "name": "3d-minesweeper",
+  "version": "1.0.0",
+  "description": "3D Minesweeper game with data persistence",
+  "main": "src/server/server.js",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "dev": "node src/server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.1"
+  },
+  "keywords": [
+    "minesweeper",
+    "3d",
+    "babylonjs",
+    "webgpu"
+  ],
+  "author": "",
+  "license": "ISC"
+}
