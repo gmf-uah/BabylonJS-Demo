@@ -6,21 +6,40 @@ const getElapsedTime = (function(){
 })()
 
 export function initCamera(canvas, scene) {
-    const position = (function(){
-    // Camera position using spherical coordinates
+
+    // Parameters : name, position, scene
+    let camera;
+    {
         const rho = 20; // fixed distance
         const theta = Math.random() * Math.PI * 2; // horizontal angle [0, 2π]
         // vertical angle phi in range [π/4, 5π/12], so camera looks slightly downward
         // https://www.desmos.com/3d/twmjgedzbx
         const phi = (Math.PI / 4) + Math.random() * (Math.PI / 6);
-        const cameraX = rho * Math.sin(phi) * Math.cos(theta);
-        const cameraY = rho * Math.cos(phi);
-        const cameraZ = rho * Math.sin(phi) * Math.sin(theta);
-        return new BABYLON.Vector3(cameraX, cameraY, cameraZ)
-    })()
 
-    // Parameters : name, position, scene
-    const camera = new BABYLON.UniversalCamera("UniversalCamera", position, scene);
+        const position = (function(){
+        // Camera position using spherical coordinates
+            const cameraX = rho * Math.sin(phi) * Math.cos(theta);
+            const cameraY = rho * Math.cos(phi);
+            const cameraZ = rho * Math.sin(phi) * Math.sin(theta);
+            return new BABYLON.Vector3(cameraX, cameraY, cameraZ)
+        })()
+
+        const freeCam = new BABYLON.UniversalCamera("UniversalCamera", position, scene);
+
+        // movement
+        freeCam.angularSensibility = 1000;
+        freeCam.speed = 6;
+        freeCam.inertia = 0;
+
+        const orbitCam = new BABYLON.ArcRotateCamera("Camera", theta, phi, rho, BABYLON.Vector3.Zero, scene);
+        orbitCam.zoomToMouseLocation = true;
+
+        camera = freeCam;
+
+        // TODO: write listener for user to change camera type
+        // switching to orbit cam should always snap the rotation to face the origin
+        // experiment with orbit cam's sensitivity
+    }
 
     // Targets the camera to a particular position. In this case the scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -67,13 +86,11 @@ export function initCamera(canvas, scene) {
         window.updatePointerLock = updatePointerLockHandlers;
     }
     
+    //controls
     camera.keysUp.push(87); // w
     camera.keysDown.push(83); // a
     camera.keysLeft.push(65); // s
     camera.keysRight.push(68); // d
     camera.keysUpward.push(69); // e
     camera.keysDownward.push(81); // q
-    camera.angularSensibility = 3000;
-    camera.speed = 1.4;
-    camera.inertia = 0.8;
 }
