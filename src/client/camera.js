@@ -16,8 +16,8 @@ export function initCamera(canvas, scene) {
         // https://www.desmos.com/3d/twmjgedzbx
         const phi = (Math.PI / 4) + Math.random() * (Math.PI / 6);
 
+        // Position camera using spherical coordinates
         const position = (function(){
-        // Camera position using spherical coordinates
             const cameraX = rho * Math.sin(phi) * Math.cos(theta);
             const cameraY = rho * Math.cos(phi);
             const cameraZ = rho * Math.sin(phi) * Math.sin(theta);
