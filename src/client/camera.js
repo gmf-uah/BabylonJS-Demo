@@ -25,28 +25,34 @@ export function initCamera(canvas, scene) {
         })()
 
         const freeCam = new BABYLON.UniversalCamera("UniversalCamera", position, scene);
+        freeCam.setTarget(BABYLON.Vector3.Zero()); // Targets the camera to the scene origin
 
         // movement
         freeCam.angularSensibility = 1000;
         freeCam.speed = 6;
         freeCam.inertia = 0;
+        freeCam.inputs.attached.mouse.buttons = [2]; // an array holding the number 2, representing rmb
+        freeCam.keysUpward.push(69); // e
+        freeCam.keysDownward.push(81); // q
 
-        const orbitCam = new BABYLON.ArcRotateCamera("Camera", theta, phi, rho, BABYLON.Vector3.Zero, scene);
-        orbitCam.zoomToMouseLocation = true;
+        const orbitCam = new BABYLON.ArcRotateCamera("Camera", theta, phi, rho, BABYLON.Vector3.Zero(), scene);
+        // orbitCam.setPosition(new BABYLON.Vector3(0, 0, -10));
+        // orbitCam.zoomToMouseLocation = true;
 
-        camera = freeCam;
+        camera = orbitCam;
+        // setTimeout(() => {
+        //     console.log("This runs after 3 seconds");
+        //     camera = orbitCam;
+        //     camera.attachControl(canvas, true);
+        // }, 3000);
 
         // TODO: write listener for user to change camera type
         // switching to orbit cam should always snap the rotation to face the origin
         // experiment with orbit cam's sensitivity
     }
 
-    // Targets the camera to a particular position. In this case the scene origin
-    camera.setTarget(BABYLON.Vector3.Zero());
-
     // Attach the camera to the canvas
     camera.attachControl(canvas, true);
-    camera.inputs.attached.mouse.buttons = [2]; // an array holding the number 2, representing rmb
 
     { // Pointer lock management
         let pointerDownHandler = null;
@@ -91,6 +97,4 @@ export function initCamera(canvas, scene) {
     camera.keysDown.push(83); // a
     camera.keysLeft.push(65); // s
     camera.keysRight.push(68); // d
-    camera.keysUpward.push(69); // e
-    camera.keysDownward.push(81); // q
 }

@@ -4,7 +4,7 @@
 export function createGame(scene) {
     // Create a blue cube at the center
     const cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 3 }, scene);
-    cube.position = new BABYLON.Vector3(0, 1, 0);
+    cube.position = new BABYLON.Vector3(0, 0, 0);
     cube.renderingGroupId = 1;
     const cubeMaterial = new BABYLON.StandardMaterial("cubeMaterial", scene);
     cubeMaterial.diffuseColor = new BABYLON.Color3(0, 0, 1);
