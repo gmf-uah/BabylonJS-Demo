@@ -41,10 +41,21 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    btn.addEventListener("click", (e) => {
+    function toggleControlPopup(e) 
+    {
         e.stopPropagation(); // Prevent event bubbling
         visible = !visible;
         popup.style.display = visible ? "block" : "none";
+    }
+
+    btn.addEventListener("click", (e) => {
+        toggleControlPopup(e);
+    });
+
+    btn.addEventListener("keydown", (e) => {
+        if(e.key === "c" || e.key === "C"){
+            toggleControlPopup(e)
+        };
     });
 
     // Hide popup if clicking outside
