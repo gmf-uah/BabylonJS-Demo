@@ -17,6 +17,7 @@ async function initWebGPU() {
         }
         
         // Load preferences before initializing anything else
+        // probably best to put this in its own function
         const preferences = await getPreferences();
         window.usePointerLock = preferences.usePointerLock;
         
