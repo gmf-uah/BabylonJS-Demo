@@ -39,7 +39,7 @@ export function initCamera(canvas, scene) {
         // orbitCam.setPosition(new BABYLON.Vector3(0, 0, -10));
         // orbitCam.zoomToMouseLocation = true;
 
-        camera = orbitCam;
+        camera = freeCam//orbitCam;
         // setTimeout(() => {
         //     console.log("This runs after 3 seconds");
         //     camera = orbitCam;
