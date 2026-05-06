@@ -52,10 +52,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         toggleControlPopup(e);
     });
 
-    btn.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", (e) => {
         if(e.key === "c" || e.key === "C"){
-            toggleControlPopup(e)
-        };
+            toggleControlPopup(e);
+        }
     });
 
     // Hide popup if clicking outside
