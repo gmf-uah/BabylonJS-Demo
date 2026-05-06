@@ -1,3 +1,4 @@
 node_modules/
 dist/
 persistence/
+package-lock.json
