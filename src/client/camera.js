@@ -74,7 +74,7 @@ export function initCamera(canvas, scene) {
             if (usePointerLock) {
                 pointerDownHandler = (event) => {
                     if (event.button === 2) {
-                        canvas.requestPointerLock().catch(() => {});
+                        canvas.requestPointerLock();//.catch(() => {});
                     }
                 };
                 pointerUpHandler = (event) => {
