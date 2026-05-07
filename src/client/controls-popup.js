@@ -26,7 +26,7 @@ function setupPointerLockToggle(popup) {
 window.addEventListener("DOMContentLoaded", async () => {
     // Load controls content first
     try {
-        const response = await fetch("pages/controls-popup.html");
+        const response = await fetch("assets/html/controls-popup.html");
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
