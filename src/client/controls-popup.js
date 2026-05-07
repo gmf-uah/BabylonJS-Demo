@@ -4,6 +4,25 @@ window.usePointerLock = false;
 // Load controls content from external file
 let controlsHtml = "";
 
+function setupPointerLockToggle(popup) {
+    const checkbox = popup.querySelector("#pointer-lock-toggle");
+    if (!checkbox) {
+        return;
+    }
+
+    checkbox.checked = window.usePointerLock;
+    checkbox.addEventListener("change", async () => {
+        window.usePointerLock = checkbox.checked;
+        window.updatePointerLock?.(checkbox.checked);
+
+        try {
+            await window.updatePreference?.("usePointerLock", checkbox.checked);
+        } catch (err) {
+            console.error("Failed to save preference:", err);
+        }
+    });
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
     // Load controls content first
     try {
@@ -33,12 +52,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     // Set content once at startup
     if (controlsHtml) {
         popup.innerHTML = controlsHtml;
-
-        // Set checkbox state after content is loaded
-        const checkbox = popup.querySelector("#pointer-lock-toggle");
-        if (checkbox) {
-            checkbox.checked = window.usePointerLock;
-        }
+        setupPointerLockToggle(popup);
     }
 
     function toggleControlPopup(e) 

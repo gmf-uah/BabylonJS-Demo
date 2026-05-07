@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    margin: 40px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    font-size: 1.2em;
+}
+
+th,
+td {
+    padding: 12px 18px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.color-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.color-preview {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #aaa;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.number-value {
+    font-weight: bold;
+}
+
+.number-1 {
+    color: #0000ff;
+}
+
+.number-2 {
+    color: #008200;
+}
+
+.number-3 {
+    color: #ff0000;
+}
+
+.number-4 {
+    color: #000084;
+}
+
+.number-5 {
+    color: #840000;
+}
+
+.number-6 {
+    color: #008284;
+}
+
+.number-7 {
+    color: #840084;
+}
+
+.number-8 {
+    color: #000000;
+}
+
+.preview-1 {
+    background: #0000ff;
+}
+
+.preview-2 {
+    background: #008200;
+}
+
+.preview-3 {
+    background: #ff0000;
+}
+
+.preview-4 {
+    background: #000084;
+}
+
+.preview-5 {
+    background: #840000;
+}
+
+.preview-6 {
+    background: #008284;
+}
+
+.preview-7 {
+    background: #840084;
+}
+
+.preview-8 {
+    background: #000000;
+}

@@ -7,7 +7,7 @@ export function createGame(scene) {
     for (let x = -2; x <= 2; x++) {
         for (let y = -2; y <= 2; y++) {
             for (let z = -2; z <= 2; z++) {
-                const cube = createBox(scene, 0.8, new BABYLON.Vector3(x, y, z), new BABYLON.Color3(0, 0, 1));
+                const cube = createBox(scene, 0.9, new BABYLON.Vector3(x, y, z), new BABYLON.Color3(0, 0, 1));
             }
         }
     }
