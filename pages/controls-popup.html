@@ -1,13 +1,10 @@
-<span style="color:#8cf">WASD, QE</span> to move<br>
-<span style="color:#8cf">Hold RMB</span> to pan the camera<br>
-<label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
-    <input type="checkbox" id="pointer-lock-toggle" style="cursor:pointer;" 
-           onchange="window.usePointerLock=this.checked; window.updatePointerLock?.(this.checked); window.updatePreference?.('usePointerLock', this.checked).catch(err => console.error('Failed to save preference:', err))">
+<span class="controls-key">WASD, QE</span> to move<br>
+<span class="controls-key">Hold RMB</span> to pan the camera<br>
+<label class="pointer-lock-label">
+    <input type="checkbox" id="pointer-lock-toggle" class="pointer-lock-toggle">
     <span>Enable Pointer Lock</span>
-    <span style="position:relative;display:inline-block;margin-left:4px;">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#555;color:#bbb;font-size:10px;cursor:help;user-select:none;" 
-              onmouseenter="this.nextElementSibling.style.opacity='1'" 
-              onmouseleave="this.nextElementSibling.style.opacity='0'">i</span>
-        <span style="position:absolute;bottom:22px;left:-60px;background:#000;color:#fff;padding:6px 8px;border-radius:4px;font-size:11px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:1000;border:1px solid #444;">Locks cursor for smoother control<br>but triggers browser notifications</span>
+    <span class="pointer-lock-help">
+        <span class="pointer-lock-help-icon">i</span>
+        <span class="pointer-lock-help-tooltip">Locks cursor for smoother control<br>but triggers browser notifications</span>
     </span>
 </label>
