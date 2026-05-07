@@ -1,6 +1,6 @@
 <span style="color:#8cf">WASD, QE</span> to move<br>
 <span style="color:#8cf">Hold RMB</span> to pan the camera<br>
-<label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+<label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
     <input type="checkbox" id="pointer-lock-toggle" style="cursor:pointer;" 
            onchange="window.usePointerLock=this.checked; window.updatePointerLock?.(this.checked); window.updatePreference?.('usePointerLock', this.checked).catch(err => console.error('Failed to save preference:', err))">
     <span>Enable Pointer Lock</span>
