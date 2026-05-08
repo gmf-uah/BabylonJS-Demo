@@ -46,6 +46,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     const btn = document.getElementById("controls-toggle");
+    const btnImg = btn.querySelector("img");
     const popup = document.getElementById("controls-popup");
     let visible = false;
     let btnHovered = false;
@@ -56,7 +57,27 @@ window.addEventListener("DOMContentLoaded", async () => {
         setupPointerLockToggle(popup);
     }
 
-    btn.style.transition = "background-color 0.2s ease";
+    //btn.style.transition = "all 0.2s ease";
+    function styleButtonIdle()
+    {
+            btn.style.backgroundColor = "rgba(30,30,30,0.6)";
+            btn.style.opacity = "0.5";
+            btnImg.style.filter = "invert(0.8)";
+    }
+
+    function styleButtonHover()
+    {
+            btn.style.backgroundColor = "rgba(100,100,100,0.6)";
+            btn.style.opacity = "1.0";
+            btnImg.style.filter = "invert(0.9)";
+    }
+    
+    function styleButtonSelected()
+    {
+            btn.style.backgroundColor = "rgba(150,150,150,0.6)";
+            btn.style.opacity = "1.0";
+            btnImg.style.filter = "invert(0.2)";
+    }
 
     function toggleControlPopup(e) 
     {
@@ -64,38 +85,19 @@ window.addEventListener("DOMContentLoaded", async () => {
         visible = !visible;
         popup.style.display = visible ? "block" : "none";
 
-        if (visible)
-        {
-            btn.style.backgroundColor = "rgba(150,150,150,0.6)";
-            btn.style.opacity = "1.0";
-        }
-        else if (btnHovered)
-        {
-            btn.style.backgroundColor = "rgba(100,100,100,0.6)";
-            btn.style.opacity = "1.0";
-        }
-        else
-        {
-            btn.style.backgroundColor = "rgba(30,30,30,0.6)";
-            btn.style.opacity = "0.5";
-        }
+        if (visible) styleButtonSelected();
+        else if (btnHovered) styleButtonHover();
+        else styleButtonIdle();
     }
 
     btn.addEventListener("mouseenter", (e) => {
         btnHovered = true;
-        if(!visible)
-        {
-        e.target.style.backgroundColor = "rgba(100,100,100,0.6)";
-        e.target.style.opacity = "1.0";
-        }
+        if(!visible) styleButtonHover();
     })
 
     btn.addEventListener("mouseleave", (e) => {
         btnHovered = false;
-        if(!visible){
-            e.target.style.backgroundColor = "rgba(30,30,30,0.6)";
-        e.target.style.opacity = "0.5";
-        }
+        if(!visible) styleButtonIdle();
     })
 
     btn.addEventListener("click", (e) => {
@@ -113,9 +115,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         if (visible && !btn.contains(e.target) && !popup.contains(e.target)) {
             popup.style.display = "none";
             visible = false;
-
-            btn.style.backgroundColor = "rgba(30,30,30,0.6)";
-            btn.style.opacity = "0.5";
+            styleButtonIdle();
         }
     });
 });
