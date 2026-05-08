@@ -43,14 +43,22 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background: #222;
+    background: rgba(30, 30, 30, 0.60);
+    backdrop-filter: blur(5px);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */
+    box-shadow: 0 4px 16px rgba(30, 30, 30, 1.00);
+    outline: 1px solid rgba(255, 238, 0, 0.7);
+    opacity: 0.5;
+}
+
+.controls-toggle:hover {
+    background: rgba(126, 126, 126, 0.6);
 }
 
 #controls-toggle img {
@@ -64,12 +72,15 @@ body {
     left: 10px;
     min-width: 220px;
     max-width: 320px;
-    background: rgba(30, 30, 30, 0.98);
+    background: rgba(30, 30, 30, 0.60);
+    backdrop-filter: blur(5px);
     color: #fff;
     padding: 18px 20px 16px 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 16px rgba(30, 30, 30, 1.00);
     font-size: 15px;
     z-index: 20;
     line-height: 1.7;
+    outline: 1px solid rgba(255, 238, 0, 0.7);
+    /* outline-style: linear-gradient(0deg, yellow, rgba(0,0,0,0)) 20 stretch; */
 }

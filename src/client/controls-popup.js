@@ -48,6 +48,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const btn = document.getElementById("controls-toggle");
     const popup = document.getElementById("controls-popup");
     let visible = false;
+    let btnHovered = false;
 
     // Set content once at startup
     if (controlsHtml) {
@@ -55,12 +56,47 @@ window.addEventListener("DOMContentLoaded", async () => {
         setupPointerLockToggle(popup);
     }
 
+    btn.style.transition = "background-color 0.2s ease";
+
     function toggleControlPopup(e) 
     {
         e.stopPropagation(); // Prevent event bubbling
         visible = !visible;
         popup.style.display = visible ? "block" : "none";
+
+        if (visible)
+        {
+            btn.style.backgroundColor = "rgba(150,150,150,0.6)";
+            btn.style.opacity = "1.0";
+        }
+        else if (btnHovered)
+        {
+            btn.style.backgroundColor = "rgba(100,100,100,0.6)";
+            btn.style.opacity = "1.0";
+        }
+        else
+        {
+            btn.style.backgroundColor = "rgba(30,30,30,0.6)";
+            btn.style.opacity = "0.5";
+        }
     }
+
+    btn.addEventListener("mouseenter", (e) => {
+        btnHovered = true;
+        if(!visible)
+        {
+        e.target.style.backgroundColor = "rgba(100,100,100,0.6)";
+        e.target.style.opacity = "1.0";
+        }
+    })
+
+    btn.addEventListener("mouseleave", (e) => {
+        btnHovered = false;
+        if(!visible){
+            e.target.style.backgroundColor = "rgba(30,30,30,0.6)";
+        e.target.style.opacity = "0.5";
+        }
+    })
 
     btn.addEventListener("click", (e) => {
         toggleControlPopup(e);
@@ -77,6 +113,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         if (visible && !btn.contains(e.target) && !popup.contains(e.target)) {
             popup.style.display = "none";
             visible = false;
+
+            btn.style.backgroundColor = "rgba(30,30,30,0.6)";
+            btn.style.opacity = "0.5";
         }
     });
 });

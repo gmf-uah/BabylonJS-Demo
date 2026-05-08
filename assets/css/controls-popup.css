@@ -1,3 +1,9 @@
+.controls-label {
+    color: white;
+    font-weight: bold;
+    align-items: center;
+}
+
 .controls-key {
     color: #8cf;
 }
