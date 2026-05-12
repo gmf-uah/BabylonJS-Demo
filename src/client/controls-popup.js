@@ -26,12 +26,15 @@ function setupPointerLockToggle(popup) {
 window.addEventListener("DOMContentLoaded", async () => {
     // Load controls content first
     try {
-        const response = await fetch("assets/html/controls-popup.html");
+        const response = await fetch("assets/html/game-menus.html");
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const text = await response.text();
-        controlsHtml = text.trim();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+        controlsHtml = doc.getElementById("controls-menu").outerHTML;
     } catch (err) {
         console.error("Could not load controls-popup.html:", err);
     }
@@ -40,16 +43,33 @@ window.addEventListener("DOMContentLoaded", async () => {
     try {
         const preferences = await window.getPreferences();
         window.usePointerLock = preferences.usePointerLock;
-        // console.log('Loaded pointer lock setting:', window.usePointerLock);
     } catch (err) {
         console.error("Could not load preferences:", err);
     }
 
+    //const sceneButtons = document.querySelectorAll(".scene-button");
+
+    function toggleControlPopup(e) 
+    {
+        e.stopPropagation(); // Prevent event bubbling
+        visible = !visible;
+        //const popup2 = document.getElementById(e.currentTarget.id);
+        popup.style.display = visible ? "block" : "none";
+        btn.classList.toggle("selected");
+
+        /*if (visible) styleButtonSelected();
+        else if (btnHovered) styleButtonHover();
+        else styleButtonIdle();*/
+    }
+
+    //sceneButtons.forEach((btn) => {
+    //
+    //});
+
     const btn = document.getElementById("controls-toggle");
-    const btnImg = btn.querySelector("img");
+    //const btnImg = btn.querySelector("img");
     const popup = document.getElementById("controls-popup");
     let visible = false;
-    let btnHovered = false;
 
     // Set content once at startup
     if (controlsHtml) {
@@ -57,50 +77,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         setupPointerLockToggle(popup);
     }
 
-    //btn.style.transition = "all 0.2s ease";
-    function styleButtonIdle()
-    {
-            btn.style.backgroundColor = "rgba(30,30,30,0.6)";
-            btn.style.opacity = "0.5";
-            btnImg.style.filter = "invert(0.8)";
-    }
 
-    function styleButtonHover()
-    {
-            btn.style.backgroundColor = "rgba(100,100,100,0.6)";
-            btn.style.opacity = "1.0";
-            btnImg.style.filter = "invert(0.9)";
-    }
-    
-    function styleButtonSelected()
-    {
-            btn.style.backgroundColor = "rgba(150,150,150,0.6)";
-            btn.style.opacity = "1.0";
-            btnImg.style.filter = "invert(0.2)";
-    }
-
-    function toggleControlPopup(e) 
-    {
-        e.stopPropagation(); // Prevent event bubbling
-        visible = !visible;
-        popup.style.display = visible ? "block" : "none";
-
-        if (visible) styleButtonSelected();
-        else if (btnHovered) styleButtonHover();
-        else styleButtonIdle();
-    }
-
-    btn.addEventListener("mouseenter", (e) => {
-        btnHovered = true;
-        if(!visible) styleButtonHover();
-    })
-
-    btn.addEventListener("mouseleave", (e) => {
-        btnHovered = false;
-        if(!visible) styleButtonIdle();
-    })
 
     btn.addEventListener("click", (e) => {
+        //alert(e.currentTarget.id);
         toggleControlPopup(e);
     });
 
@@ -115,7 +95,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         if (visible && !btn.contains(e.target) && !popup.contains(e.target)) {
             popup.style.display = "none";
             visible = false;
-            styleButtonIdle();
+            //styleButtonIdle();
+            btn.classList.toggle("selected");
         }
     });
 });

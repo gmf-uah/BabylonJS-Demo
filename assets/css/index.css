@@ -14,15 +14,22 @@ body {
 #error-message {
     display: none;
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 0, 0, 0.9);
+    background-color: rgba(255, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
     color: white;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     max-width: 80%;
+    box-shadow: 0 4px 16px rgba(30, 30, 30, 1.00);
+    outline: 1px solid rgba(255,0,0,1)
+}
+
+#error-message img {
+    filter: invert(1.0);
 }
 
 #controls-info {
@@ -37,10 +44,10 @@ body {
     transition: all 0.2s ease;
 }
 
-#controls-toggle {
+.scene-button {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    /*top: 10px;
+    left: 10px;*/
     width: 40px;
     height: 40px;
     border-radius: 8px;
@@ -52,27 +59,44 @@ body {
     justify-content: center;
     z-index: 10;
     cursor: pointer;
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */
     box-shadow: 0 4px 16px rgba(30, 30, 30, 1.00);
     outline: 1px solid rgba(255, 238, 0, 0.7);
     opacity: 0.5;
     transition: all 0.2s ease;
 }
 
-/*.controls-toggle:hover {
-    background: rgba(126, 126, 126, 0.6);
-}*/
-
-#controls-toggle img {
+.scene-button img {
     filter: invert(0.8);
     transition: all 0.2s ease;
 }
 
-#controls-popup {
+.scene-button:hover {
+    background-color: rgba(100,100,100,0.6);
+    opacity: 1.0;
+}
+
+.scene-button.hover img {
+    filter: invert(0.9);
+}
+
+.scene-button:active {
+    background-color: rgba(30,30,30,0.6)
+}
+
+.scene-button.selected {
+    background-color: rgba(150,150,150,0.6);
+    opacity: 1.0;
+}
+
+.scene-button.selected img {
+    filter: invert(0.2);
+}
+
+.scene-button-popup {
     display: none;
     position: absolute;
-    top: 60px;
-    left: 10px;
+    /*top: 60px;
+    left: 10px;*/
     min-width: 220px;
     max-width: 320px;
     background: rgba(30, 30, 30, 0.60);
@@ -84,7 +108,27 @@ body {
     font-size: 15px;
     z-index: 20;
     line-height: 1.7;
-    outline: 1px solid rgba(255, 238, 0, 0.7);
-    /* outline-style: linear-gradient(0deg, yellow, rgba(0,0,0,0)) 20 stretch; */
+    border: 1px solid rgba(255, 238, 0, 0.7);
+    /*border-image: linear-gradient(0deg, yellow, rgba(0,0,0,0)) 20 stretch;*/
     transition: all 0.5s ease;
+}
+
+#controls-toggle {
+    top: 10px;
+    left: 10px;
+}
+
+#controls-popup {
+    top: 60px;
+    left: 10px;
+}
+
+#settings-toggle {
+    top: 10px;
+    right: 10px;
+}
+
+#settings-popup {
+    top: 60px;
+    right: 10px;
 }

@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CubeSweep</title>
     <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/controls-popup.css">
+    <link rel="stylesheet" href="assets/css/game-menus.css">
 </head>
 <body>
 
     <canvas id="renderCanvas" tabindex="0"></canvas>
-    <div id="error-message"></div>
-    <button id="controls-toggle" title="Show controls">
-        <img src="./assets/keyboard.svg" alt="Keyboard Icon" width="28" height="28">
+    
+    <div id="error-message">
+        <img src="./assets/error.svg" alt="Controls" width="28" height="28">
+        <span>error</span>
+    </div>
+
+    <button class="scene-button" id="controls-toggle" title="Controls">
+        <img src="./assets/keyboard.svg" alt="Controls" width="28" height="28">
     </button>
-    <div id="controls-popup"></div>
+    <div class="scene-button-popup" id="controls-popup"></div>
+
+    <button class="scene-button" id="settings-toggle" title="Settings">
+        <img src="./assets/gears.svg" alt="Settings" width="28" height="28">
+    </button>
+    <div class="scene-button-popup" id="settings-popup"></div>
 
     <!-- Babylon.js from CDN -->
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
