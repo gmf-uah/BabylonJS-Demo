@@ -14,6 +14,7 @@ The server will run on `https://localhost:8089`
 
 - **WASD, QE** to move
 - **Hold RMB** to pan the camera
+- **C** to toggle controls panel
 
 camera problems
 - https://forum.babylonjs.com/t/camera-angularsensibility-vs-speed/61894
